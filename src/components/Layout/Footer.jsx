@@ -48,7 +48,7 @@ function SubFooter() {
   return (
     <Footer
       style={{
-        backgroundColor: primary_accent_color,
+        backgroundColor: '#3E2B2F',
         marginLeft: '-7px',
       }}
     >

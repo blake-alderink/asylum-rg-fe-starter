@@ -3,7 +3,8 @@ import { Image } from 'antd';
 import { Link } from 'react-router-dom';
 import Logo from '../../styles/Images/WhiteLogo.png';
 import { colors } from '../../styles/data_vis_colors';
-
+// import '../../../styles/RenderLandingPage.less';
+// import '../../../styles/styles.css';
 const { primary_accent_color } = colors;
 
 function HeaderContent() {
@@ -13,7 +14,8 @@ function HeaderContent() {
         display: 'flex',
         justifyContent: 'space-between',
         width: '100%',
-        backgroundColor: primary_accent_color,
+        // backgroundColor:'#3E2B2F',
+        backgroundColor: '#3E2B2F',
       }}
     >
       <div className="hrf-logo">

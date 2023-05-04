@@ -46,7 +46,7 @@ export function App() {
           height: '10vh',
           display: 'flex',
           alignItems: 'center',
-          backgroundColor: primary_accent_color,
+          backgroundColor: '#3E2B2F',
         }}
       >
         <HeaderContent />
@@ -58,7 +58,7 @@ export function App() {
       </Switch>
       <Footer
         style={{
-          backgroundColor: primary_accent_color,
+          backgroundColor: '#3E2B2F',
           color: '#E2F0F7',
         }}
       >
