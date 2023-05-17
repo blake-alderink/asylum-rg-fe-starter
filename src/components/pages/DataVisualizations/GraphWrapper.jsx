@@ -9,12 +9,16 @@ import TimeSeriesSingleOffice from './Graphs/TimeSeriesSingleOffice';
 import YearLimitsSelect from './YearLimitsSelect';
 import ViewSelect from './ViewSelect';
 import axios from 'axios';
-import { resetVisualizationQuery } from '../../../state/actionCreators';
+import {
+  resetVisualizationQuery,
+  setVisualizationData,
+} from '../../../state/actionCreators';
 import test_data from '../../../data/test_data.json';
 import { colors } from '../../../styles/data_vis_colors';
 import ScrollToTopOnMount from '../../../utils/scrollToTopOnMount';
 
 const { background_color } = colors;
+const Real_Production_URL = 'https://hrf-asylum-be-b.herokuapp.com/cases';
 
 function GraphWrapper(props) {
   const { set_view, dispatch } = props;
@@ -50,7 +54,8 @@ function GraphWrapper(props) {
         break;
     }
   }
-  function updateStateWithNewData(years, view, office, stateSettingCallback) {
+
+  function updateStateWithNewData(years, view, office, statesettingCallback) {
     /*
           _                                                                             _
         |                                                                                 |
@@ -73,9 +78,13 @@ function GraphWrapper(props) {
     
     */
 
+    const map_view =
+      view === 'citizenship' ? 'citizenshipSummary' : 'fiscalSummary';
+
     if (office === 'all' || !office) {
+      // const real_data = axios.get()
       axios
-        .get(process.env.REACT_APP_API_URI, {
+        .get(`${Real_Production_URL}/${map_view}`, {
           // mock URL, can be simply replaced by `${Real_Production_URL}/summary` in prod!
           params: {
             from: years[0],
@@ -83,14 +92,22 @@ function GraphWrapper(props) {
           },
         })
         .then(result => {
-          stateSettingCallback(view, office, test_data); // <-- `test_data` here can be simply replaced by `result.data` in prod!
+          console.log(view);
+          const finalData =
+            view === 'citizenship'
+              ? [{ citizenshipResults: result.data, yearResults: [] }]
+              : [result.data];
+          if (view === 'citizenship') {
+            finalData.yearResults = [];
+          }
+          statesettingCallback(view, office, finalData); // <-- `test_data` here can be simply replaced by `result.data` in prod!
         })
         .catch(err => {
           console.error(err);
         });
     } else {
       axios
-        .get(process.env.REACT_APP_API_URI, {
+        .get(`${Real_Production_URL}/${map_view}`, {
           // mock URL, can be simply replaced by `${Real_Production_URL}/summary` in prod!
           params: {
             from: years[0],
@@ -99,7 +116,15 @@ function GraphWrapper(props) {
           },
         })
         .then(result => {
-          stateSettingCallback(view, office, test_data); // <-- `test_data` here can be simply replaced by `result.data` in prod!
+          console.log(view);
+          const finalData =
+            view === 'citizenship'
+              ? [{ citizenshipResults: result.data, yearResults: [] }]
+              : [result.data];
+          if (view === 'citizenship') {
+            finalData.yearResults = [];
+          }
+          statesettingCallback(view, office, finalData);
         })
         .catch(err => {
           console.error(err);
