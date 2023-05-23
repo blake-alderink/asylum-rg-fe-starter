@@ -14,10 +14,16 @@ const { primary_accent_color } = colors;
 function HeaderContent() {
   const { isAuthenticated } = useAuth0();
   let logButton;
+  let profileButton;
   if (isAuthenticated) {
     logButton = (
       <Link style={{ color: '#E2F0F7' }}>
         <LogoutButton>Logout</LogoutButton>
+      </Link>
+    );
+    profileButton = (
+      <Link to="/profile" style={{ color: '#E2F0F7', paddingRight: '75px' }}>
+        Profile
       </Link>
     );
   } else {
@@ -34,6 +40,7 @@ function HeaderContent() {
         display: 'flex',
         justifyContent: 'space-between',
         width: '100%',
+        flexWrap: 'nowrap',
         // backgroundColor:'#3E2B2F',
         backgroundColor: '#3E2B2F',
       }}
@@ -43,14 +50,15 @@ function HeaderContent() {
           <Image width={100} src={Logo} preview={false} alt="HRF logo white" />
         </a>
       </div>
-      <div>
+      <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
+        {profileButton}
         <Link to="/" style={{ color: '#E2F0F7', paddingRight: '75px' }}>
           Home
         </Link>
-        <Link to="/graphs" style={{ color: '#E2F0F7' }}>
+        <Link to="/graphs" style={{ color: '#E2F0F7', paddingRight: '75px' }}>
           Graphs
         </Link>
-        {logButton};
+        {logButton}
       </div>
     </div>
   );

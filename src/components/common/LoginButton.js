@@ -13,8 +13,8 @@ export const LoginButton = () => {
   };
 
   return (
-    <button className="button__login" onClick={handleLogin}>
-      Log In
-    </button>
+    <div className="button__login" onClick={handleLogin}>
+      Login
+    </div>
   );
 };
