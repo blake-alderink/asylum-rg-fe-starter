@@ -3,11 +3,31 @@ import { Image } from 'antd';
 import { Link } from 'react-router-dom';
 import Logo from '../../styles/Images/WhiteLogo.png';
 import { colors } from '../../styles/data_vis_colors';
+import { LoginButton } from '../common/LoginButton';
+import { LogoutButton } from '../common/LogoutButton';
+import { useAuth0 } from '@auth0/auth0-react';
+
 // import '../../../styles/RenderLandingPage.less';
 // import '../../../styles/styles.css';
 const { primary_accent_color } = colors;
 
 function HeaderContent() {
+  const { isAuthenticated } = useAuth0();
+  let logButton;
+  if (isAuthenticated) {
+    logButton = (
+      <Link style={{ color: '#E2F0F7' }}>
+        <LogoutButton>Logout</LogoutButton>
+      </Link>
+    );
+  } else {
+    logButton = (
+      <Link style={{ color: '#E2F0F7' }}>
+        <LoginButton>Login</LoginButton>
+      </Link>
+    );
+  }
+
   return (
     <div
       style={{
@@ -30,6 +50,7 @@ function HeaderContent() {
         <Link to="/graphs" style={{ color: '#E2F0F7' }}>
           Graphs
         </Link>
+        {logButton};
       </div>
     </div>
   );
